@@ -80,7 +80,7 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.05s ease, box-shadow 0.1s ease, opacity 0.15s.ease;
+      transition: transform 0.05s ease, box-shadow 0.1s ease, opacity 0.15s ease;
       box-shadow: 0 8px 20px rgba(37,99,235,0.35);
     }
     .btn-primary:hover {
@@ -595,9 +595,17 @@
             horasTxt = '-';
           }
         } else if (i === indiceHoy) {
-          estadoClass = 'estado-sugerido';
-          estadoTxt = 'Sugerido hoy';
-          horasTxt = minutesToHM(sugeridoHoyMin);
+          if (tieneRegistro) {
+            // Hoy ya está cerrado con horario real
+            estadoClass = 'estado-real';
+            estadoTxt = 'Real hoy';
+            horasTxt = minutesToHM(horasDia);
+          } else {
+            // Hoy sigue abierto, mostramos sugerencia
+            estadoClass = 'estado-sugerido';
+            estadoTxt = 'Sugerido hoy';
+            horasTxt = minutesToHM(sugeridoHoyMin);
+          }
         } else {
           estadoClass = 'estado-minimo';
           estadoTxt = 'Previsto mínimo';
@@ -687,6 +695,10 @@
         return;
       }
 
+      // NUEVO: si hoy tiene una salida cargada, la vamos a usar para cerrar el día
+      const salidaHoy = parseTime(document.getElementById('salida' + indiceHoy).value);
+      const tieneSalidaHoyValida = salidaHoy != null && salidaHoy > entradaHoy;
+
       let faltanteTeorico = objetivoSemanalMin - acumuladoHastaAyer;
       let mensajeExtra = '';
 
@@ -729,11 +741,6 @@
 
       const horaSalidaHoy = entradaHoy + sugeridoHoyMin;
 
-      ultimaEntradaHoyMin = entradaHoy;
-      ultimaSugerenciaHoyMin = sugeridoHoyMin;
-      ultimoObjetivoSemanalMin = objetivoSemanalMin;
-      ultimoAcumuladoHastaAyerMin = acumuladoHastaAyer;
-
       const nombre = obtenerNombre();
       const saludo = nombre ? `Hola, ${nombre}.\n\n` : '';
 
@@ -748,6 +755,13 @@
       const notas = [];
       if (mensajeExtra) notas.push(`Nota: ${mensajeExtra}`);
       if (notaJornada) notas.push(notaJornada);
+
+      // NUEVO: si hay salida real cargada para hoy, mostramos también esas horas
+      if (tieneSalidaHoyValida) {
+        const trabajadoHoy = salidaHoy - entradaHoy;
+        notas.push(`Según el horario de salida que cargaste, hoy llevás ${minutesToHM(trabajadoHoy)} trabajadas.`);
+      }
+
       if (notas.length) {
         textoResultado += `\n\n${notas.join('\n')}`;
       }
@@ -755,13 +769,28 @@
       resultado.style.display = 'block';
       resultadoTexto.textContent = textoResultado;
 
-      actualizarProgreso(acumuladoHastaAyer, objetivoSemanalMin);
+      // Actualizar progreso y contador según si hoy está "abierto" o "cerrado"
+      ultimoObjetivoSemanalMin = objetivoSemanalMin;
+
+      if (tieneSalidaHoyValida) {
+        // Día cerrado: usamos las horas reales de hoy y NO iniciamos el contador
+        const trabajadoHoy = salidaHoy - entradaHoy;
+        ultimoAcumuladoHastaAyerMin = acumuladoHastaAyer + trabajadoHoy;
+        ultimaEntradaHoyMin = null;
+        ultimaSugerenciaHoyMin = null;
+        actualizarProgreso(acumuladoHastaAyer + trabajadoHoy, objetivoSemanalMin);
+      } else {
+        // Día en curso: seguimos con el seguimiento en vivo
+        ultimoAcumuladoHastaAyerMin = acumuladoHastaAyer;
+        ultimaEntradaHoyMin = entradaHoy;
+        ultimaSugerenciaHoyMin = sugeridoHoyMin;
+        actualizarProgreso(acumuladoHastaAyer, objetivoSemanalMin);
+        iniciarContador();
+      }
 
       construirResumenSemana(diasTrabajados, indiceHoy, minimoMin, sugeridoHoyMin);
 
       guardarEstado();
-
-      iniciarContador();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
