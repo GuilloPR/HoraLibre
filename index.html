@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Hora libre – Calculadora de la jornada laboral semanal</title>
@@ -7,67 +8,155 @@
   <meta name="theme-color" content="#2563eb" />
   <link rel="manifest" href="manifest.webmanifest" />
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg-color: #f4f5fb;
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-small: #6b7280;
+      --border-color: #cbd5f5;
+      --input-bg: #f9fafb;
+      --accent-color: #2563eb;
+      --accent-gradient: linear-gradient(135deg, #2563eb, #4f46e5);
+      --table-header: #e5edff;
+      --table-even: #f9fbff;
+      --success-bg: #ecfdf5;
+      --success-border: #16a34a;
+      --success-text: #064e3b;
+      --error-bg: #fef2f2;
+      --error-border: #dc2626;
+      --error-text: #7f1d1d;
+      --warning-bg: #fffbeb;
+      --warning-border: #f59e0b;
+      --warning-text: #78350f;
+      --progress-bg: #eff6ff;
+      --progress-bar-bg: #dbeafe;
+      --progress-text: #1d4ed8;
+      --shadow: rgba(15, 23, 42, 0.12);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-small: #94a3b8;
+      --border-color: #334155;
+      --input-bg: #0f172a;
+      --accent-color: #3b82f6;
+      --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
+      --table-header: #334155;
+      --table-even: #1e293b;
+      --success-bg: #064e3b;
+      --success-border: #10b981;
+      --success-text: #ecfdf5;
+      --error-bg: #7f1d1d;
+      --error-border: #ef4444;
+      --error-text: #fef2f2;
+      --warning-bg: #78350f;
+      --warning-border: #f59e0b;
+      --warning-text: #fffbeb;
+      --progress-bg: #1e3a8a;
+      --progress-bar-bg: #334155;
+      --progress-text: #bfdbfe;
+      --shadow: rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f4f5fb;
+      background: var(--bg-color);
+      color: var(--text-main);
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    h1 { font-size: 22px; margin-bottom: 10px; }
-    p  { margin: 4px 0; }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 4px 0;
+    }
+
     .card {
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 20px;
       border-radius: 14px;
       max-width: 820px;
       margin: 0 auto;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 30px var(--shadow);
+      position: relative;
     }
+
     label {
       display: block;
       margin-top: 12px;
       font-weight: 600;
       font-size: 14px;
     }
-    input[type="number"], input[type="time"], input[type="text"] {
+
+    input[type="number"],
+    input[type="time"],
+    input[type="text"] {
       padding: 6px 8px;
       border-radius: 8px;
-      border: 1px solid #cbd5f5;
+      border: 1px solid var(--border-color);
       font-size: 14px;
       width: 100%;
-      background: #f9fafb;
+      background: var(--input-bg);
+      color: var(--text-main);
     }
+
     input[type="number"]:focus,
     input[type="time"]:focus,
     input[type="text"]:focus {
       outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 1px rgba(37,99,235,0.35);
-      background: #ffffff;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+      background: var(--card-bg);
     }
+
     .row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
-    .row > div { flex: 1 1 180px; }
+
+    .row>div {
+      flex: 1 1 180px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 14px;
       font-size: 14px;
     }
-    th, td {
+
+    th,
+    td {
       padding: 6px 4px;
       text-align: center;
     }
+
     th {
-      background: #e5edff;
+      background: var(--table-header);
       font-weight: 600;
     }
-    tr:nth-child(even) td { background: #f9fbff; }
-    tr:nth-child(odd) td { background: #ffffff; }
+
+    tr:nth-child(even) td {
+      background: var(--table-even);
+    }
+
+    tr:nth-child(odd) td {
+      background: var(--card-bg);
+    }
 
     .btn-primary {
       margin-top: 18px;
@@ -75,21 +164,23 @@
       padding: 10px 12px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(135deg,#2563eb,#4f46e5);
+      background: var(--accent-gradient);
       color: #ffffff;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.05s ease, box-shadow 0.1s ease, opacity 0.15s ease;
-      box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
     }
+
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(37,99,235,0.4);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.4);
     }
+
     .btn-primary:active {
       transform: translateY(0);
-      box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
       opacity: 0.9;
     }
 
@@ -97,40 +188,45 @@
       margin-top: 18px;
       padding: 14px 16px;
       border-radius: 10px;
-      background: #ecfdf5;
-      border-left: 4px solid #16a34a;
-      color: #064e3b;
+      background: var(--success-bg);
+      border-left: 4px solid var(--success-border);
+      color: var(--success-text);
       font-size: 14px;
       line-height: 1.4;
       white-space: pre-line;
     }
-    .resultado strong { font-weight: 700; }
+
+    .resultado strong {
+      font-weight: 700;
+    }
 
     .alerta {
       margin-top: 12px;
       padding: 10px 12px;
       border-radius: 8px;
-      background: #fef2f2;
-      border-left: 3px solid #dc2626;
-      color: #7f1d1d;
+      background: var(--error-bg);
+      border-left: 3px solid var(--error-border);
+      color: var(--error-text);
       font-size: 13px;
       display: none;
       white-space: pre-line;
     }
+
     .alerta-exceso {
       margin-top: 12px;
       padding: 10px 12px;
       border-radius: 8px;
-      background: #fffbeb;
-      border-left: 3px solid #f59e0b;
-      color: #78350f;
+      background: var(--warning-bg);
+      border-left: 3px solid var(--warning-border);
+      color: var(--warning-text);
       font-size: 13px;
       display: none;
       white-space: pre-line;
     }
+
     .small-hint {
       font-size: 12px;
-      color: #6b7280;
+      color: var(--text-small);
       margin-top: 2px;
     }
 
@@ -138,11 +234,12 @@
       margin-top: 18px;
       padding: 12px 14px;
       border-radius: 10px;
-      background: #eff6ff;
-      border-left: 4px solid #2563eb;
+      background: var(--progress-bg);
+      border-left: 4px solid var(--accent-color);
       font-size: 13px;
-      color: #1d4ed8;
+      color: var(--progress-text);
     }
+
     .progreso-labels {
       display: flex;
       justify-content: space-between;
@@ -150,6 +247,7 @@
       margin-bottom: 6px;
       font-weight: 600;
     }
+
     .progreso-barra {
       position: relative;
       width: 100%;
@@ -158,6 +256,7 @@
       background: #dbeafe;
       overflow: hidden;
     }
+
     .progreso-barra-inner {
       position: absolute;
       left: 0;
@@ -165,9 +264,10 @@
       bottom: 0;
       width: 0%;
       border-radius: 999px;
-      background: linear-gradient(90deg,#22c55e,#16a34a);
+      background: linear-gradient(90deg, #22c55e, #16a34a);
       transition: width 0.25s ease-out;
     }
+
     .progreso-detalle {
       margin-top: 6px;
       font-size: 12px;
@@ -178,34 +278,50 @@
       margin-top: 16px;
       font-size: 13px;
     }
+
     .tabla-resumen table {
       width: 100%;
       border-collapse: collapse;
     }
+
     .tabla-resumen th,
     .tabla-resumen td {
       padding: 4px 6px;
       border-bottom: 1px solid #e5e7eb;
       text-align: center;
     }
+
     .tabla-resumen th {
       background: #f3f4f6;
       font-weight: 600;
     }
-    .tabla-resumen .estado-real { color: #166534; }
-    .tabla-resumen .estado-sugerido { color: #1d4ed8; }
-    .tabla-resumen .estado-minimo { color: #6b7280; }
-    .tabla-resumen .estado-no { color: #9ca3af; }
+
+    .tabla-resumen .estado-real {
+      color: #166534;
+    }
+
+    .tabla-resumen .estado-sugerido {
+      color: #1d4ed8;
+    }
+
+    .tabla-resumen .estado-minimo {
+      color: #6b7280;
+    }
+
+    .tabla-resumen .estado-no {
+      color: #9ca3af;
+    }
 
     .firma {
       margin-top: 22px;
       text-align: center;
       font-size: 15px;
-      color: #111827;
+      color: var(--text-main);
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
     .firma a {
       position: relative;
       display: inline-flex;
@@ -219,10 +335,12 @@
       box-shadow: 0 0 0 rgba(37, 99, 235, 0.0);
       transition: all 0.18s ease-out;
     }
+
     .firma a::before {
       content: "⌁";
       font-size: 14px;
     }
+
     .firma a::after {
       content: "";
       position: absolute;
@@ -237,30 +355,40 @@
       transform-origin: center;
       transition: all 0.18s ease-out;
     }
+
     .firma a:hover {
       background: rgba(37, 99, 235, 0.12);
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
       transform: translateY(-1px);
     }
+
     .firma a:hover::after {
       opacity: 1;
       transform: scaleX(1);
     }
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1>
       Hora libre ⏱️✨
-      <span style="font-size:12px;color:#6b7280;margin-left:8px;">v1.2</span>
-      <div style="font-size:13px;color:#6b7280;margin-top:2px;font-weight:500;">
+      <span style="font-size:12px;color:var(--text-small);margin-left:8px;">v1.3</span>
+      <div style="font-size:13px;color:var(--text-small);margin-top:2px;font-weight:500;">
         Calculadora de la jornada laboral semanal
       </div>
     </h1>
 
-    <p style="font-size:13px;color:#4b5563;">
+    <div style="position:absolute; top:20px; right:20px; display:flex; gap:10px;">
+      <button id="themeToggle" class="btn-icon" title="Cambiar tema"
+        style="background:none; border:none; cursor:pointer; font-size:20px;">🌓</button>
+      <button id="resetSemana" class="btn-icon" title="Limpiar datos de la semana" onclick="limpiarSemana()"
+        style="background:none; border:none; cursor:pointer; font-size:20px;">🧹</button>
+    </div>
+
+    <p style="font-size:13px;color:var(--text-muted);">
       📘 <strong>Regla base:</strong> 35 horas semanales (lunes a viernes), con <strong>mínimo 5 horas
-      por día trabajado</strong>. Si hay feriados o ausencias justificadas, el objetivo se ajusta a
+        por día trabajado</strong>. Si hay feriados o ausencias justificadas, el objetivo se ajusta a
       <strong>7 horas por cada día marcado como trabajado</strong>.
     </p>
     <p class="small-hint">
@@ -354,7 +482,8 @@
       <span id="resultadoTexto" style="display:block;margin-top:4px;"></span>
     </div>
 
-    <div id="contadorBox" class="resultado" style="display:none;background:#eff6ff;border-left-color:#2563eb;color:#1e3a8a;">
+    <div id="contadorBox" class="resultado"
+      style="display:none;background:#eff6ff;border-left-color:#2563eb;color:#1e3a8a;">
       <strong>🔴 Seguimiento en vivo de hoy</strong>
       <span id="contadorTexto" style="display:block;margin-top:4px;"></span>
     </div>
@@ -556,7 +685,7 @@
       if (ultimaEntradaHoyMin == null || ultimaSugerenciaHoyMin == null) return;
 
       if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission().catch(() => {});
+        Notification.requestPermission().catch(() => { });
       }
 
       actualizarContador();
@@ -793,8 +922,52 @@
       guardarEstado();
     }
 
+    function limpiarSemana() {
+      if (confirm('¿Estás seguro de que querés limpiar todos los horarios de esta semana? El nombre y el mínimo diario se mantendrán.')) {
+        for (let i = 1; i <= 5; i++) {
+          document.getElementById('entrada' + i).value = '';
+          document.getElementById('salida' + i).value = '';
+          document.getElementById('trabaja' + i).checked = true;
+        }
+        calcular();
+      }
+    }
+
+    // Lógica de Modo Oscuro
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      let theme = document.body.getAttribute('data-theme');
+      if (theme === 'dark') {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Detección automática del día
+    function detectarDiaHoy() {
+      const fecha = new Date();
+      let diaSemi = fecha.getDay(); // 0 (Dom) a 6 (Sab)
+      if (diaSemi >= 1 && diaSemi <= 5) {
+        const radio = document.querySelector(`input[name="hoy"][value="${diaSemi}"]`);
+        if (radio) radio.checked = true;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       cargarEstado();
+      // Si no hay un día marcado después de cargar el estado, detectamos el de hoy
+      if (!document.querySelector('input[name="hoy"]:checked')) {
+        detectarDiaHoy();
+      }
     });
 
     if ('serviceWorker' in navigator) {
@@ -806,4 +979,5 @@
     }
   </script>
 </body>
+
 </html>
