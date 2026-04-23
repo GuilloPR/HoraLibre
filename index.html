@@ -8,247 +8,402 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <style>
     :root {
-      --bg: #f4f6f9;
-      --bg-grad: linear-gradient(180deg, #eef3f8 0%, #f7f9fc 100%);
-      --card: #ffffff;
-      --primary: #1f4f82;
-      --primary-2: #2d6aa3;
-      --soft: #eaf2fb;
-      --soft-2: #dbe7f3;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --small: #64748b;
-      --border: #d6dde8;
+      --bg-color: #f4f5fb;
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-small: #6b7280;
+      --border-color: #cbd5e1;
+      --input-bg: #f9fafb;
+      --accent-color: #1f4f82;
+      --accent-color-2: #2d6aa3;
+      --accent-gradient: linear-gradient(135deg, #1f4f82, #2d6aa3);
+      --table-header: #dbe7f3;
+      --table-even: #f9fbff;
       --success-bg: #ecfdf5;
-      --success-bd: #16a34a;
-      --success-tx: #065f46;
-      --warn-bg: #fffbeb;
-      --warn-bd: #f59e0b;
-      --warn-tx: #92400e;
+      --success-border: #16a34a;
+      --success-text: #065f46;
       --error-bg: #fef2f2;
-      --error-bd: #dc2626;
-      --error-tx: #991b1b;
-      --shadow: 0 14px 34px rgba(17, 24, 39, 0.08);
-      --radius: 18px;
-      --radius-lg: 24px;
+      --error-border: #dc2626;
+      --error-text: #7f1d1d;
+      --warning-bg: #fffbeb;
+      --warning-border: #f59e0b;
+      --warning-text: #92400e;
+      --soft-panel: #eaf2fb;
+      --soft-panel-2: #dbe7f3;
+      --shadow: rgba(15, 23, 42, 0.12);
+      --blue-text: #1f4f82;
     }
 
     [data-theme="dark"] {
-      --bg: #0f172a;
-      --bg-grad: linear-gradient(180deg, #0b1220 0%, #111b2f 100%);
-      --card: #162033;
-      --primary: #6fa5dd;
-      --primary-2: #4d86bd;
-      --soft: #1d3555;
-      --soft-2: #243b5d;
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --small: #94a3b8;
-      --border: #2d3d56;
-      --success-bg: #052e2b;
-      --success-bd: #10b981;
-      --success-tx: #d1fae5;
-      --warn-bg: #3a2a08;
-      --warn-bd: #f59e0b;
-      --warn-tx: #fde68a;
-      --error-bg: #3b0d12;
-      --error-bd: #ef4444;
-      --error-tx: #fecaca;
-      --shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-small: #94a3b8;
+      --border-color: #334155;
+      --input-bg: #0f172a;
+      --accent-color: #60a5fa;
+      --accent-color-2: #4f86c6;
+      --accent-gradient: linear-gradient(135deg, #1f4f82, #2d6aa3);
+      --table-header: #31445f;
+      --table-even: #223049;
+      --success-bg: #064e3b;
+      --success-border: #10b981;
+      --success-text: #ecfdf5;
+      --error-bg: #7f1d1d;
+      --error-border: #ef4444;
+      --error-text: #fef2f2;
+      --warning-bg: #78350f;
+      --warning-border: #f59e0b;
+      --warning-text: #fffbeb;
+      --soft-panel: #172554;
+      --soft-panel-2: #22386a;
+      --shadow: rgba(0, 0, 0, 0.4);
+      --blue-text: #bfdbfe;
     }
 
     * { box-sizing: border-box; }
+
     body {
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
-      padding: 28px;
-      background: var(--bg-grad);
-      color: var(--text);
-      transition: background .25s ease, color .25s ease;
+      padding: 22px;
+      background: var(--bg-color);
+      color: var(--text-main);
+      transition: background 0.25s ease, color 0.25s ease;
     }
-    .page { max-width: 1180px; margin: 0 auto; }
 
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: white;
-      border-radius: var(--radius-lg);
-      padding: 28px 30px;
-      box-shadow: var(--shadow);
+    .app-shell {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px var(--shadow);
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      margin-bottom: 22px;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
     }
-    .hero-topline {
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .app-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .brand-copy h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .version-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.14);
+      letter-spacing: 0.03em;
+    }
+
+    .brand-copy p {
+      margin: 4px 0 0 0;
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .icon-btn,
+    .text-btn {
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.08s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    .icon-btn {
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text-btn {
+      height: 48px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.18);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 14px;
+    }
+
+    .icon-btn:hover,
+    .text-btn:hover,
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .summary-card,
+    .week-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
+
+    .summary-card {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 0.95fr 1fr 1fr;
+      gap: 18px;
       margin-bottom: 14px;
     }
-    .hero h1 { margin: 0; font-size: 34px; letter-spacing: -0.02em; }
-    .hero p {
-      margin: 8px 0 0 0;
-      color: rgba(255,255,255,0.9);
-      max-width: 760px;
-      line-height: 1.45;
-    }
-    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-    .ghost-btn {
-      border: 1px solid rgba(255,255,255,0.24);
-      background: rgba(255,255,255,0.14);
-      color: white;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
+
+    .summary-col {
+      min-width: 0;
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1.05fr 1.05fr 0.9fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 18px;
+    .summary-col + .summary-col {
+      border-left: 1px solid var(--border-color);
+      padding-left: 18px;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
+    .col-title {
+      margin: 0 0 10px 0;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--blue-text);
     }
-    .section-title {
+
+    .general-list,
+    .metric-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .general-line,
+    .metric-line {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
       gap: 10px;
-      margin-bottom: 16px;
     }
-    .section-title h2 {
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: -0.01em;
-      color: var(--primary);
+
+    .general-line .label,
+    .metric-line .label {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 600;
     }
-    .section-title span {
-      color: var(--muted);
-      font-size: 13px;
+
+    .general-line .value {
+      font-size: 17px;
       font-weight: 700;
+      color: var(--text-main);
       text-align: right;
     }
 
-    .stats-2, .stats-4, .mini-grid {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    .stats-2 { grid-template-columns: repeat(2, 1fr); }
-    .stats-4 { grid-template-columns: repeat(2, 1fr); }
-    .mini-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .stat, .mini {
-      background: var(--soft);
-      border: 1px solid var(--soft-2);
-      border-radius: 16px;
-      padding: 16px;
-    }
-    .mini { background: color-mix(in srgb, var(--card) 92%, var(--soft) 8%); border-color: var(--border); }
-    .stat-label, .mini-label {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-    .mini-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      margin-bottom: 6px;
-    }
-    .stat-value, .mini-value {
-      font-size: 30px;
+    .metric-line .value {
+      font-size: 23px;
       font-weight: 800;
       letter-spacing: -0.03em;
-      color: var(--text);
-    }
-    .mini-value { font-size: 22px; }
-    .stat-sub {
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.35;
+      color: var(--text-main);
+      text-align: right;
+      min-width: 72px;
     }
 
     .progress-block {
-      margin-top: 8px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--card) 88%, var(--soft) 12%);
-      border: 1px solid var(--border);
+      margin-top: 16px;
     }
+
     .progress-head {
       display: flex;
       justify-content: space-between;
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: var(--primary);
-      gap: 10px;
-    }
-    .bar {
-      height: 12px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--soft-2) 70%, white 30%);
-      overflow: hidden;
-    }
-    .bar > div {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--primary), #4d86bd);
-      transition: width .25s ease-out;
-    }
-    .progress-note {
-      margin-top: 8px;
+      align-items: center;
+      margin-bottom: 8px;
       font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
+      color: var(--text-muted);
+      font-weight: 700;
     }
 
-    .alerta, .alerta-exceso, .resultado {
-      margin-top: 12px;
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--soft-panel-2) 76%, white 24%);
+      overflow: hidden;
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-color), var(--accent-color-2));
+      transition: width 0.25s ease-out;
+    }
+
+    .progress-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-small);
+      line-height: 1.35;
+    }
+
+    .inline-live-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-small);
+      font-weight: 600;
+    }
+
+    .alerta, .resultado {
       padding: 14px 16px;
       border-radius: 14px;
       font-size: 14px;
+      line-height: 1.45;
       white-space: pre-line;
       display: none;
-      line-height: 1.45;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
     }
+
+    .alerta {
+      background: var(--warning-bg);
+      border: 1px solid color-mix(in srgb, var(--warning-border) 55%, white 45%);
+      color: var(--warning-text);
+    }
+
+    .alerta strong,
+    .resultado strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
     .resultado {
       background: var(--success-bg);
-      border-left: 4px solid var(--success-bd);
-      color: var(--success-tx);
+      border: 1px solid color-mix(in srgb, var(--success-border) 55%, white 45%);
+      color: var(--success-text);
     }
-    .alerta {
-      background: var(--error-bg);
-      border-left: 4px solid var(--error-bd);
-      color: var(--error-tx);
+
+    .week-card {
+      padding: 18px 18px 20px;
     }
-    .alerta-exceso {
-      background: var(--warn-bg);
-      border-left: 4px solid var(--warn-bd);
-      color: var(--warn-tx);
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      color: var(--blue-text);
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-head-right {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+      padding-top: 6px;
+    }
+
+    .week-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .week-copy p {
+      margin: 0 0 10px 0;
+    }
+
+    .inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--text-small);
+      margin-top: 6px;
+    }
+
+    input[type="number"],
+    input[type="time"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 14px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input[type="number"]:focus,
+    input[type="time"]:focus,
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(31,79,130,0.12);
+      background: var(--card-bg);
     }
 
     table {
@@ -256,385 +411,331 @@
       border-collapse: collapse;
       font-size: 14px;
       overflow: hidden;
-      border-radius: 16px;
+      border-radius: 18px;
     }
-    thead th {
-      background: var(--soft-2);
-      color: var(--primary);
+
+    th, td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent 40%);
+    }
+
+    th {
+      background: var(--table-header);
+      color: var(--blue-text);
       font-size: 13px;
-      text-align: center;
-      padding: 12px 8px;
-    }
-    tbody td {
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
-      padding: 12px 8px;
-      text-align: center;
-      background: color-mix(in srgb, var(--card) 96%, var(--soft) 4%);
-    }
-    tbody tr:nth-child(even) td {
-      background: color-mix(in srgb, var(--card) 85%, var(--soft) 15%);
+      font-weight: 700;
     }
 
-    input[type="number"], input[type="time"], input[type="text"] {
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      font-size: 14px;
-      width: 100%;
-      background: color-mix(in srgb, var(--card) 92%, var(--soft) 8%);
-      color: var(--text);
-    }
-    input[type="number"]:focus, input[type="time"]:focus, input[type="text"]:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 35%, transparent 65%);
-    }
-    input[type="checkbox"], input[type="radio"] { transform: scale(1.1); accent-color: var(--primary); }
+    tbody tr:nth-child(even) td { background: var(--table-even); }
+    tbody tr:nth-child(odd) td { background: var(--card-bg); }
 
-    .row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
-    .row > div { flex: 1 1 180px; }
-    label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 14px; }
-    .small-hint { font-size: 12px; color: var(--small); margin-top: 4px; }
-
-    .primary-btn, .secondary-btn {
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .primary-btn {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: white;
-      border: none;
-      box-shadow: 0 10px 20px rgba(31, 79, 130, 0.18);
-      width: 100%;
-    }
-    .secondary-btn {
-      background: color-mix(in srgb, var(--card) 92%, var(--soft) 8%);
-      color: var(--primary);
-      border: 1px solid var(--border);
-      width: 100%;
-      margin-top: 10px;
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
-    .pill {
+    .table-input {
+      min-width: 126px;
+    }
+
+    .status-pill {
       display: inline-block;
-      padding: 6px 10px;
+      padding: 7px 14px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
+      font-weight: 700;
+      font-size: 13px;
     }
-    .pill-ok { background: #dcfce7; color: #166534; }
-    .pill-hoy { background: #dbeafe; color: #1d4ed8; }
-    .pill-min { background: #f3f4f6; color: #6b7280; }
-    .pill-off { background: #fee2e2; color: #991b1b; }
 
-    .tabla-resumen table { font-size: 13px; }
-    .tabla-resumen th, .tabla-resumen td { padding: 8px 6px; }
-    .tabla-resumen .estado-real { color: #166534; font-weight: 700; }
-    .tabla-resumen .estado-sugerido { color: #1d4ed8; font-weight: 700; }
-    .tabla-resumen .estado-minimo { color: #6b7280; font-weight: 700; }
-    .tabla-resumen .estado-no { color: #9ca3af; font-weight: 700; }
+    .status-activo { background: #dff3e5; color: #166534; }
+    .status-hoy { background: #dbeafe; color: #1d4ed8; }
+    .status-previsto { background: #f3f4f6; color: #6b7280; }
+    .status-no { background: #fee2e2; color: #991b1b; }
 
-    .insight {
-      border-left: 4px solid var(--primary);
-      background: color-mix(in srgb, var(--card) 88%, var(--soft) 12%);
-      border-radius: 14px;
-      padding: 14px 14px 14px 16px;
-      margin-bottom: 12px;
+    .cta {
+      margin-top: 16px;
     }
-    .insight h3 { margin: 0 0 8px 0; font-size: 15px; color: var(--primary); }
-    .insight p { margin: 0; font-size: 14px; color: var(--text); line-height: 1.45; }
 
-    .firma {
+    .btn-primary {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 16px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(31,79,130,0.22);
+      transition: transform 0.08s ease, opacity 0.18s ease;
+    }
+
+    .footer-link {
       margin-top: 22px;
       text-align: center;
-      font-size: 15px;
-      color: var(--text);
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .firma a {
-      position: relative;
+
+    .footer-link a {
+      color: var(--accent-color);
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--primary);
-      text-decoration: none;
       padding: 4px 10px;
       border-radius: 999px;
-      background: color-mix(in srgb, var(--primary) 10%, transparent 90%);
-      transition: all 0.18s ease-out;
+      background: rgba(37, 99, 235, 0.06);
     }
-    .firma a::before { content: "⌁"; font-size: 14px; }
 
-    @media (max-width: 1080px) {
-      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    @media (max-width: 980px) {
+      .summary-card {
+        grid-template-columns: 1fr;
+      }
+      .summary-col + .summary-col {
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        padding-left: 0;
+        padding-top: 18px;
+      }
     }
+
     @media (max-width: 820px) {
-      body { padding: 16px; }
-      .hero { flex-direction: column; }
-      .stats-2, .stats-4, .mini-grid { grid-template-columns: 1fr; }
-      .hero-actions { justify-content: flex-start; }
+      body { padding: 14px; }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top-actions { width: 100%; }
+      .inputs-grid { grid-template-columns: 1fr; }
+      .brand-copy h1 { font-size: 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .brand {
+        align-items: flex-start;
+      }
+      .app-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+      }
+      .top-actions {
+        justify-content: flex-start;
+      }
+      .general-line .value,
+      .metric-line .value {
+        font-size: 20px;
+      }
+      .section-head {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .section-head-right {
+        white-space: normal;
+        padding-top: 0;
+      }
+      .table-input { min-width: 100px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <section class="hero">
-      <div>
-        <div class="hero-topline">🏛️ Hora libre v1.4 · Estilo institucional</div>
-        <h1>Hora libre</h1>
-        <p>Calculadora de la jornada laboral semanal con detección automática del día actual, seguimiento en vivo, progreso semanal, número de semana, horas acumuladas y acceso rápido a limpieza semanal y modo oscuro.</p>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icon-192.png" alt="Hora libre" class="app-icon" />
+        <div class="brand-copy">
+          <h1>Hora libre <span class="version-chip">v1.41</span></h1>
+          <p>Calculadora de jornada semanal</p>
+        </div>
       </div>
-      <div class="hero-actions">
-        <button id="themeToggle" class="ghost-btn" title="Cambiar tema">🌓 Tema</button>
-        <button id="resetSemana" class="ghost-btn" title="Limpiar datos de la semana" onclick="limpiarSemana()">🧹 Limpiar semana</button>
+      <div class="top-actions">
+        <button id="themeToggle" class="icon-btn" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+        <button id="resetSemana" class="text-btn" title="Limpiar datos de la semana" aria-label="Limpiar datos de la semana" onclick="limpiarSemana()">🧹 <span>Limpiar semana</span></button>
       </div>
-    </section>
+    </header>
 
-    <section class="grid-3">
-      <div class="card">
-        <div class="section-title">
-          <h2>Información general</h2>
-          <span>Detectada automáticamente</span>
-        </div>
-        <div class="stats-2">
-          <div class="stat">
-            <div class="stat-label">Fecha actual</div>
-            <div class="stat-value" id="fechaActual" style="font-size:24px;">--/--/----</div>
-            <div class="stat-sub">Tomada de la fecha del sistema de la PC.</div>
+    <section class="summary-card">
+      <div class="summary-col">
+        <h2 class="col-title">Información general</h2>
+        <div class="general-list">
+          <div class="general-line">
+            <span class="label">Fecha</span>
+            <span class="value" id="generalFecha">--/--/----</span>
           </div>
-          <div class="stat">
-            <div class="stat-label">Hora actual</div>
-            <div class="stat-value" id="horaActual">--:--</div>
-            <div class="stat-sub">Actualizada automáticamente minuto a minuto.</div>
+          <div class="general-line">
+            <span class="label">Hora</span>
+            <span class="value" id="generalHora">--:--</span>
           </div>
-        </div>
-        <div class="mini-grid">
-          <div class="mini">
-            <div class="mini-label">Hoy es</div>
-            <div class="mini-value" id="diaActual">-</div>
+          <div class="general-line">
+            <span class="label">Semana</span>
+            <span class="value" id="generalSemana">N.º --</span>
           </div>
-          <div class="mini">
-            <div class="mini-label">Semana del año</div>
-            <div class="mini-value" id="numeroSemana">-</div>
-          </div>
-        </div>
-        <div class="progress-block">
-          <div class="progress-head">
-            <span>Horas cumplidas de la semana</span>
-            <span id="horasSemanaTexto">00:00</span>
-          </div>
-          <div class="bar"><div id="barraSemanaViva" style="width:0%"></div></div>
-          <div class="progress-note" id="notaSemanaViva">Se actualiza con los horarios cerrados y con lo que llevás hoy en tiempo real.</div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="section-title">
-          <h2>Estado de hoy</h2>
-          <span id="subtituloHoy">Sin calcular</span>
-        </div>
-        <div class="stats-2">
-          <div class="stat">
-            <div class="stat-label">Llevás hoy</div>
-            <div class="stat-value" id="hoyLlevasGrande">00:00</div>
-            <div class="stat-sub">Seguimiento en vivo desde la hora de entrada.</div>
+      <div class="summary-col">
+        <h2 class="col-title">Hoy</h2>
+        <div class="metric-list">
+          <div class="metric-line">
+            <span class="label">Llevás hoy</span>
+            <span class="value" id="hoyLlevas">--:--</span>
           </div>
-          <div class="stat">
-            <div class="stat-label">Salida estimada</div>
-            <div class="stat-value" id="salidaEstimadaGrande">--:--</div>
-            <div class="stat-sub">Calculada según la sugerencia del día.</div>
+          <div class="metric-line">
+            <span class="label">Sugerido para hoy</span>
+            <span class="value" id="hoySugerido">--:--</span>
+          </div>
+          <div class="metric-line">
+            <span class="label">Salida estimada</span>
+            <span class="value" id="hoySalida">--:--</span>
           </div>
         </div>
-
         <div class="progress-block">
           <div class="progress-head">
             <span>Progreso del día</span>
-            <span id="progresoPorcentaje">0%</span>
+            <span id="hoyProgressPct">0%</span>
           </div>
-          <div class="bar"><div id="progresoBarraInner" style="width:0%"></div></div>
-          <div class="progress-note" id="progresoDetalle"></div>
+          <div class="progress-bar"><div id="hoyProgressInner" class="progress-bar-inner"></div></div>
+          <div class="inline-live-note" id="hoyLiveNote"></div>
         </div>
-
-        <div id="contadorBox" class="resultado" style="background:var(--soft);border-left-color:var(--primary);color:var(--text);">
-          <strong>🔴 Seguimiento en vivo de hoy</strong>
-          <span id="contadorTexto" style="display:block;margin-top:4px;"></span>
-        </div>
-
-        <div id="alertaExceso" class="alerta-exceso"></div>
       </div>
 
-      <div class="card">
-        <div class="section-title">
-          <h2>Estado de la semana</h2>
-          <span>Horas reales + hoy en curso</span>
-        </div>
-        <div class="stats-4">
-          <div class="stat">
-            <div class="stat-label">Horas cumplidas</div>
-            <div class="stat-value" id="horasSemanaCumplidas">00:00</div>
-            <div class="stat-sub">Días cerrados + hoy en vivo si corresponde.</div>
+      <div class="summary-col">
+        <h2 class="col-title">Semana</h2>
+        <div class="metric-list">
+          <div class="metric-line">
+            <span class="label">Horas cumplidas</span>
+            <span class="value" id="semanaCumplidas">--:--</span>
           </div>
-          <div class="stat">
-            <div class="stat-label">Objetivo semanal</div>
-            <div class="stat-value" id="objetivoSemanalBox">00:00</div>
-            <div class="stat-sub">Ajustado según los días marcados como trabajados.</div>
+          <div class="metric-line">
+            <span class="label">Objetivo semanal</span>
+            <span class="value" id="semanaObjetivo">--:--</span>
           </div>
-          <div class="stat">
-            <div class="stat-label">Horas faltantes</div>
-            <div class="stat-value" id="horasFaltantesBox">00:00</div>
-            <div class="stat-sub">Faltante real con base en el objetivo vigente.</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">Progreso total</div>
-            <div class="stat-value" id="progresoTotalBox">0%</div>
-            <div class="stat-sub">Lectura semanal rápida, sin calcular nada a mano.</div>
+          <div class="metric-line">
+            <span class="label">Faltan</span>
+            <span class="value" id="semanaFaltan">--:--</span>
           </div>
         </div>
-
-        <div id="alerta" class="alerta"></div>
-
-        <div id="resultado" class="resultado">
-          <strong>📌 Resumen de la jornada</strong>
-          <span id="resultadoTexto" style="display:block;margin-top:4px;"></span>
+        <div class="progress-block">
+          <div class="progress-head">
+            <span>Progreso semanal</span>
+            <span id="semanaProgressPct">0%</span>
+          </div>
+          <div class="progress-bar"><div id="semanaProgressInner" class="progress-bar-inner"></div></div>
+          <div class="progress-note" id="semanaProgressNote"></div>
         </div>
       </div>
     </section>
 
-    <section class="grid-2">
-      <div class="card">
-        <div class="section-title">
+    <div id="alertaExceso" class="alerta"></div>
+
+    <section class="week-card">
+      <div class="section-head">
+        <div>
           <h2>Semana actual</h2>
-          <span>Carga manual + lectura clara</span>
         </div>
-
-        <p style="font-size:13px;color:var(--muted);margin:0 0 10px 0;">
-          📘 <strong>Regla base:</strong> 35 horas semanales (lunes a viernes), con <strong>mínimo 5 horas por día trabajado</strong>. Si hay feriados o ausencias justificadas, el objetivo se ajusta a <strong>7 horas por cada día marcado como trabajado</strong>.
-        </p>
-        <p class="small-hint" style="margin-bottom:12px;">
-          ♻️ Las horas “de más” alivianan los últimos días: se prioriza que el viernes quede en 5 horas; si todavía hay crédito, también el jueves, y así sucesivamente.
-        </p>
-
-        <div class="row">
-          <div>
-            <label for="nombreUsuario">📛 Tu nombre</label>
-            <input type="text" id="nombreUsuario" placeholder="Ej: Guillermo" />
-            <div class="small-hint">Si lo completás, los avisos van a llamarte por tu nombre.</div>
-          </div>
-          <div>
-            <label for="minimoDiario">⏳ Mínimo diario (horas)</label>
-            <input type="number" id="minimoDiario" min="1" max="12" value="5" />
-            <div class="small-hint">Tu regla actual: 5 hs mínimas por día trabajado.</div>
-          </div>
-        </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Día</th>
-              <th>¿Se trabaja?</th>
-              <th>Hoy</th>
-              <th>Entrada</th>
-              <th>Salida</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Lunes</td>
-              <td><input type="checkbox" id="trabaja1" checked /></td>
-              <td><input type="radio" name="hoy" value="1" /></td>
-              <td><input type="time" id="entrada1" /></td>
-              <td><input type="time" id="salida1" /></td>
-              <td><span class="pill pill-ok">Activo</span></td>
-            </tr>
-            <tr>
-              <td>Martes</td>
-              <td><input type="checkbox" id="trabaja2" checked /></td>
-              <td><input type="radio" name="hoy" value="2" /></td>
-              <td><input type="time" id="entrada2" /></td>
-              <td><input type="time" id="salida2" /></td>
-              <td><span class="pill pill-ok">Activo</span></td>
-            </tr>
-            <tr>
-              <td>Miércoles</td>
-              <td><input type="checkbox" id="trabaja3" checked /></td>
-              <td><input type="radio" name="hoy" value="3" /></td>
-              <td><input type="time" id="entrada3" /></td>
-              <td><input type="time" id="salida3" /></td>
-              <td><span class="pill pill-hoy">Hoy</span></td>
-            </tr>
-            <tr>
-              <td>Jueves</td>
-              <td><input type="checkbox" id="trabaja4" checked /></td>
-              <td><input type="radio" name="hoy" value="4" /></td>
-              <td><input type="time" id="entrada4" /></td>
-              <td><input type="time" id="salida4" /></td>
-              <td><span class="pill pill-min">Previsto</span></td>
-            </tr>
-            <tr>
-              <td>Viernes</td>
-              <td><input type="checkbox" id="trabaja5" checked /></td>
-              <td><input type="radio" name="hoy" value="5" /></td>
-              <td><input type="time" id="entrada5" /></td>
-              <td><input type="time" id="salida5" /></td>
-              <td><span class="pill pill-min">Previsto</span></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <button class="primary-btn" onclick="calcular()">📊 Calcular salida de hoy y horas pendientes</button>
-
-        <div id="resumenSemana" class="tabla-resumen" style="margin-top:16px;"></div>
+        <div class="section-head-right">Carga manual + lectura clara</div>
       </div>
 
-      <div class="card">
-        <div class="section-title">
-          <h2>Mensajes y acciones</h2>
-          <span>Resumen inteligente</span>
-        </div>
+      <div class="week-copy">
+        <p>📘 <strong>Regla base:</strong> 35 horas semanales (lunes a viernes), con <strong>mínimo 5 horas por día trabajado</strong>. Si hay feriados o ausencias justificadas, el objetivo se ajusta a <strong>7 horas por cada día marcado como trabajado</strong>.</p>
+        <p>♻️ Las horas “de más” alivianan los últimos días: se prioriza que el viernes quede en 5 horas; si todavía hay crédito, también el jueves, y así sucesivamente.</p>
+      </div>
 
-        <div class="insight">
-          <h3>Qué estás viendo</h3>
-          <p>Arriba tenés la fecha actual, la hora, el día de la semana, el número de semana calendario y las horas semanales cumplidas. Todo eso se actualiza automáticamente.</p>
+      <div class="inputs-grid">
+        <div>
+          <label for="nombreUsuario">💖 Tu nombre</label>
+          <input type="text" id="nombreUsuario" placeholder="Ej: Guillermo" />
+          <div class="hint">Si lo completás, los avisos van a llamarte por tu nombre.</div>
         </div>
-
-        <div class="insight">
-          <h3>Semana en vivo</h3>
-          <p>El conteo semanal no espera a que cierres el día: si hoy tiene entrada cargada y todavía no tiene salida, suma lo que llevás hoy en tiempo real.</p>
-        </div>
-
-        <div class="insight">
-          <h3>Funciones conservadas</h3>
-          <p>Se mantienen el modo oscuro, la detección automática de “hoy”, la limpieza semanal, el guardado automático, el contador en vivo, el progreso y las alertas.</p>
-        </div>
-
-        <div class="insight">
-          <h3>PWA</h3>
-          <p>Tu manifest, tus íconos y el service worker siguen siendo los mismos. Esta versión solo reemplaza el <strong>index.html</strong>.</p>
+        <div>
+          <label for="minimoDiario">⏳ Mínimo diario (horas)</label>
+          <input type="number" id="minimoDiario" min="1" max="12" value="5" />
+          <div class="hint">Tu regla actual: 5 hs mínimas por día trabajado.</div>
         </div>
       </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:16%;">Día</th>
+            <th style="width:14%;">¿Se trabaja?</th>
+            <th style="width:10%;">Hoy</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th style="width:16%;">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lunes</td>
+            <td><input type="checkbox" id="trabaja1" checked /></td>
+            <td><input type="radio" name="hoy" value="1" /></td>
+            <td><input class="table-input" type="time" id="entrada1" /></td>
+            <td><input class="table-input" type="time" id="salida1" /></td>
+            <td><span id="estado1" class="status-pill status-previsto">Previsto</span></td>
+          </tr>
+          <tr>
+            <td>Martes</td>
+            <td><input type="checkbox" id="trabaja2" checked /></td>
+            <td><input type="radio" name="hoy" value="2" /></td>
+            <td><input class="table-input" type="time" id="entrada2" /></td>
+            <td><input class="table-input" type="time" id="salida2" /></td>
+            <td><span id="estado2" class="status-pill status-previsto">Previsto</span></td>
+          </tr>
+          <tr>
+            <td>Miércoles</td>
+            <td><input type="checkbox" id="trabaja3" checked /></td>
+            <td><input type="radio" name="hoy" value="3" /></td>
+            <td><input class="table-input" type="time" id="entrada3" /></td>
+            <td><input class="table-input" type="time" id="salida3" /></td>
+            <td><span id="estado3" class="status-pill status-previsto">Previsto</span></td>
+          </tr>
+          <tr>
+            <td>Jueves</td>
+            <td><input type="checkbox" id="trabaja4" checked /></td>
+            <td><input type="radio" name="hoy" value="4" /></td>
+            <td><input class="table-input" type="time" id="entrada4" /></td>
+            <td><input class="table-input" type="time" id="salida4" /></td>
+            <td><span id="estado4" class="status-pill status-previsto">Previsto</span></td>
+          </tr>
+          <tr>
+            <td>Viernes</td>
+            <td><input type="checkbox" id="trabaja5" checked /></td>
+            <td><input type="radio" name="hoy" value="5" /></td>
+            <td><input class="table-input" type="time" id="entrada5" /></td>
+            <td><input class="table-input" type="time" id="salida5" /></td>
+            <td><span id="estado5" class="status-pill status-previsto">Previsto</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cta">
+        <button class="btn-primary" onclick="calcular()">📊 Calcular salida de hoy y horas pendientes</button>
+      </div>
+
+      <div id="resultado" class="resultado" style="margin-top:14px; margin-bottom:0;">
+        <strong>📌 Resumen de la jornada</strong>
+        <span id="resultadoTexto" style="display:block;margin-top:4px;"></span>
+      </div>
+
+      <div id="resumenSemana" style="margin-top:16px;"></div>
     </section>
 
-    <p class="firma"><a href="https://x.com/Guillogo_" target="_blank" rel="noreferrer">hecho por Guillogo</a></p>
+    <p class="footer-link"><a href="https://x.com/Guillogo_" target="_blank" rel="noreferrer">hecho por Guillogo</a></p>
   </div>
 
   <script>
     const STORAGE_KEY = 'jornadaGuillogoEstado';
-    let ultimaEntradaHoyMin = null;
-    let ultimaSugerenciaHoyMin = null;
+    const THEME_KEY = 'theme';
     let contadorInterval = null;
-    let ultimoObjetivoSemanalMin = null;
-    let ultimoAcumuladoHastaAyerMin = null;
     let sonidoAlertaReproducido = false;
+    let ultimaMetrica = null;
 
     function parseTime(value) {
       if (!value) return null;
-      const parts = value.split(":");
+      const parts = value.split(':');
       if (parts.length < 2) return null;
       const h = Number(parts[0]);
       const m = Number(parts[1]);
@@ -643,14 +744,16 @@
     }
 
     function minutesToHM(totalMinutes) {
-      const sign = totalMinutes < 0 ? "-" : "";
+      if (totalMinutes == null || Number.isNaN(totalMinutes)) return '--:--';
+      const sign = totalMinutes < 0 ? '-' : '';
       const abs = Math.abs(Math.round(totalMinutes));
       const h = Math.floor(abs / 60);
       const m = abs % 60;
-      return sign + String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+      return sign + String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
     }
 
     function buildHoraSalidaStr(totalMinutes) {
+      if (totalMinutes == null || Number.isNaN(totalMinutes)) return '--:--';
       const mod = ((totalMinutes % (24 * 60)) + (24 * 60)) % (24 * 60);
       return minutesToHM(mod);
     }
@@ -663,21 +766,17 @@
         const osc1 = ctx.createOscillator();
         const osc2 = ctx.createOscillator();
         const gain = ctx.createGain();
-
         osc1.type = 'square';
         osc2.type = 'square';
         osc1.frequency.value = 880;
         osc2.frequency.value = 660;
-
         osc1.connect(gain);
         osc2.connect(gain);
         gain.connect(ctx.destination);
-
         const ahora = ctx.currentTime;
         gain.gain.setValueAtTime(0.001, ahora);
         gain.gain.linearRampToValueAtTime(0.18, ahora + 0.05);
         gain.gain.linearRampToValueAtTime(0.001, ahora + 0.5);
-
         osc1.start(ahora);
         osc2.start(ahora + 0.08);
         osc1.stop(ahora + 0.5);
@@ -692,112 +791,306 @@
       return el ? (el.value || '').trim() : '';
     }
 
-    function obtenerIndiceHoy() {
-      const hoyRadio = document.querySelector('input[name="hoy"]:checked');
-      return hoyRadio ? Number(hoyRadio.value) : null;
+    function getSelectedTodayIndex() {
+      const radio = document.querySelector('input[name="hoy"]:checked');
+      return radio ? Number(radio.value) : null;
     }
 
-    function obtenerObjetivoSemanalMin() {
-      const diasTrabajados = [];
+    function getWorkedDays() {
+      const days = [];
       for (let i = 1; i <= 5; i++) {
-        if (document.getElementById('trabaja' + i).checked) diasTrabajados.push(i);
+        if (document.getElementById('trabaja' + i).checked) days.push(i);
       }
-      return diasTrabajados.length * 7 * 60;
+      return days;
     }
 
-    function calcularHorasSemanaBase() {
-      let total = 0;
-      for (let i = 1; i <= 5; i++) {
-        const ent = parseTime(document.getElementById('entrada' + i).value);
-        const sal = parseTime(document.getElementById('salida' + i).value);
-        if (ent != null && sal != null && sal > ent) {
-          total += (sal - ent);
+    function getSystemNowMinutes() {
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function getDayClosedMinutes(i) {
+      const ent = parseTime(document.getElementById('entrada' + i).value);
+      const sal = parseTime(document.getElementById('salida' + i).value);
+      if (ent != null && sal != null && sal > ent) return sal - ent;
+      return null;
+    }
+
+    function getDayLiveMinutes(i) {
+      const ent = parseTime(document.getElementById('entrada' + i).value);
+      if (ent == null) return null;
+      const sal = parseTime(document.getElementById('salida' + i).value);
+      if (sal != null && sal > ent) return sal - ent;
+      return Math.max(0, getSystemNowMinutes() - ent);
+    }
+
+    function getCurrentDateParts() {
+      const now = new Date();
+      const dayName = now.toLocaleDateString('es-AR', { weekday: 'long' });
+      const capitalizedDay = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+      const dateText = now.toLocaleDateString('es-AR');
+      const timeText = now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+      return { capitalizedDay, dateText, timeText };
+    }
+
+    function getISOWeekNumber(date = new Date()) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    function computeMetrics() {
+      const minimoHoras = Number(document.getElementById('minimoDiario').value || 0);
+      const minimoMin = minimoHoras > 0 ? minimoHoras * 60 : 0;
+      const workedDays = getWorkedDays();
+      const todayIndex = getSelectedTodayIndex();
+      const objectiveWeekMin = workedDays.length * 7 * 60;
+
+      let closedUntilYesterday = 0;
+      if (todayIndex != null) {
+        workedDays.forEach(i => {
+          if (i < todayIndex) {
+            const closed = getDayClosedMinutes(i);
+            if (closed != null) closedUntilYesterday += closed;
+          }
+        });
+      }
+
+      let todayEntry = null;
+      let todayExit = null;
+      let todayClosedMin = null;
+      let todayLiveMin = null;
+      let todayOpen = false;
+      let suggestedTodayMin = null;
+      let estimatedExitMin = null;
+      let todayProgress = 0;
+      let weeklyCompletedLive = closedUntilYesterday;
+      let weeklyRemaining = objectiveWeekMin;
+      let todayExcess = null;
+      let msgExtra = '';
+      let noteDay = '';
+
+      if (todayIndex != null) {
+        todayEntry = parseTime(document.getElementById('entrada' + todayIndex).value);
+        todayExit = parseTime(document.getElementById('salida' + todayIndex).value);
+        if (todayEntry != null && todayExit != null && todayExit > todayEntry) {
+          todayClosedMin = todayExit - todayEntry;
+          weeklyCompletedLive += todayClosedMin;
+        } else if (todayEntry != null) {
+          todayOpen = true;
+          todayLiveMin = Math.max(0, getSystemNowMinutes() - todayEntry);
+          weeklyCompletedLive += todayLiveMin;
         }
       }
-      return total;
-    }
 
-    function calcularHorasSemanaEnVivo() {
-      let total = calcularHorasSemanaBase();
-      const indiceHoy = obtenerIndiceHoy();
-      if (!indiceHoy) return total;
+      weeklyRemaining = Math.max(0, objectiveWeekMin - weeklyCompletedLive);
 
-      const ent = parseTime(document.getElementById('entrada' + indiceHoy).value);
-      const sal = parseTime(document.getElementById('salida' + indiceHoy).value);
-      if (ent == null) return total;
+      if (todayIndex != null && workedDays.includes(todayIndex) && minimoMin > 0 && todayEntry != null) {
+        let faltanteTeorico = objectiveWeekMin - closedUntilYesterday;
+        if (faltanteTeorico <= 0) {
+          msgExtra = 'Ya cumpliste o superaste el objetivo semanal solo con los días anteriores. Aun así, se respeta el mínimo diario para hoy.';
+          faltanteTeorico = 0;
+        }
 
-      if (sal != null && sal > ent) {
-        return total;
-      }
+        const futureDays = workedDays.filter(i => i > todayIndex);
+        const faltanteParaObjetivo = Math.max(0, faltanteTeorico);
+        const diasRestantesIncluyendoHoy = 1 + futureDays.length;
+        const maxJornadaRazonable = 9 * 60;
 
-      const ahora = new Date();
-      const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-      let trabajadosHoy = minutosAhora - ent;
-      if (trabajadosHoy < 0) trabajadosHoy = 0;
-      return total + trabajadosHoy;
-    }
-
-    function obtenerNumeroSemana(fecha = new Date()) {
-      const f = new Date(Date.UTC(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()));
-      const diaNum = f.getUTCDay() || 7;
-      f.setUTCDate(f.getUTCDate() + 4 - diaNum);
-      const inicioAnio = new Date(Date.UTC(f.getUTCFullYear(), 0, 1));
-      return Math.ceil((((f - inicioAnio) / 86400000) + 1) / 7);
-    }
-
-    function actualizarPanelGeneral() {
-      const ahora = new Date();
-      const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-
-      const fechaTexto = ahora.toLocaleDateString('es-AR');
-      const horaTexto = ahora.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-      const diaTexto = dias[ahora.getDay()];
-      const semanaNum = obtenerNumeroSemana(ahora);
-
-      const horasSemana = calcularHorasSemanaEnVivo();
-      const objetivoSemanal = ultimoObjetivoSemanalMin ?? obtenerObjetivoSemanalMin();
-      const porcentaje = objetivoSemanal > 0 ? Math.max(0, Math.min(100, Math.round((horasSemana / objetivoSemanal) * 100))) : 0;
-      const faltantes = Math.max(0, objetivoSemanal - horasSemana);
-
-      document.getElementById('fechaActual').textContent = fechaTexto;
-      document.getElementById('horaActual').textContent = horaTexto;
-      document.getElementById('diaActual').textContent = diaTexto.charAt(0).toUpperCase() + diaTexto.slice(1);
-      document.getElementById('numeroSemana').textContent = `N.º ${semanaNum}`;
-      document.getElementById('horasSemanaTexto').textContent = minutesToHM(horasSemana);
-      document.getElementById('barraSemanaViva').style.width = porcentaje + '%';
-      document.getElementById('notaSemanaViva').textContent = `${minutesToHM(horasSemana)} cumplidas de ${minutesToHM(objetivoSemanal)}. Faltan ${minutesToHM(faltantes)}.`;
-
-      document.getElementById('horasSemanaCumplidas').textContent = minutesToHM(horasSemana);
-      document.getElementById('objetivoSemanalBox').textContent = minutesToHM(objetivoSemanal);
-      document.getElementById('horasFaltantesBox').textContent = minutesToHM(faltantes);
-      document.getElementById('progresoTotalBox').textContent = porcentaje + '%';
-
-      const indiceHoy = obtenerIndiceHoy();
-      const ent = indiceHoy ? parseTime(document.getElementById('entrada' + indiceHoy).value) : null;
-      const sal = indiceHoy ? parseTime(document.getElementById('salida' + indiceHoy).value) : null;
-      let hoyLlevas = 0;
-      if (ent != null) {
-        if (sal != null && sal > ent) {
-          hoyLlevas = sal - ent;
+        if (faltanteParaObjetivo === 0) {
+          suggestedTodayMin = minimoMin;
+        } else if (diasRestantesIncluyendoHoy >= 2) {
+          const requeridoEquilibrado = Math.ceil(faltanteParaObjetivo / diasRestantesIncluyendoHoy);
+          let propuesto = Math.max(minimoMin, requeridoEquilibrado);
+          if (propuesto > maxJornadaRazonable) {
+            propuesto = maxJornadaRazonable;
+            noteDay = 'Para no sugerirte jornadas mayores a 9 horas, se reparte el esfuerzo entre hoy y los días siguientes.';
+          }
+          suggestedTodayMin = propuesto;
         } else {
-          const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-          hoyLlevas = Math.max(0, minutosAhora - ent);
+          let requeridoHoy = faltanteParaObjetivo;
+          if (requeridoHoy <= minimoMin) {
+            suggestedTodayMin = minimoMin;
+          } else {
+            let propuesto = Math.min(requeridoHoy, maxJornadaRazonable);
+            if (propuesto < requeridoHoy) {
+              noteDay = 'Aunque el cálculo teórico daría más horas para hoy, se limita la sugerencia a un máximo de 9 horas en una sola jornada.';
+            }
+            suggestedTodayMin = propuesto;
+          }
+        }
+
+        estimatedExitMin = todayEntry + suggestedTodayMin;
+        const currentTodayMin = todayOpen ? todayLiveMin : todayClosedMin;
+        if (currentTodayMin != null && suggestedTodayMin != null && suggestedTodayMin > 0) {
+          todayProgress = Math.max(0, Math.min(1, currentTodayMin / suggestedTodayMin));
+          if (todayOpen) {
+            const exceso = currentTodayMin - suggestedTodayMin;
+            if (exceso > 5) todayExcess = exceso;
+          }
         }
       }
-      document.getElementById('hoyLlevasGrande').textContent = minutesToHM(hoyLlevas);
-      document.getElementById('subtituloHoy').textContent = `${diaTexto.charAt(0).toUpperCase() + diaTexto.slice(1)} ${fechaTexto} · ${horaTexto}`;
+
+      const weekProgress = objectiveWeekMin > 0 ? Math.max(0, Math.min(1, weeklyCompletedLive / objectiveWeekMin)) : 0;
+
+      return {
+        minimoMin,
+        workedDays,
+        todayIndex,
+        objectiveWeekMin,
+        closedUntilYesterday,
+        todayEntry,
+        todayExit,
+        todayClosedMin,
+        todayLiveMin,
+        todayOpen,
+        suggestedTodayMin,
+        estimatedExitMin,
+        todayProgress,
+        weekProgress,
+        weeklyCompletedLive,
+        weeklyRemaining,
+        todayExcess,
+        msgExtra,
+        noteDay
+      };
     }
 
-    function actualizarProgreso(totalMin, objetivoMin) {
-      const porcentajeSpan = document.getElementById('progresoPorcentaje');
-      const detalle = document.getElementById('progresoDetalle');
-      if (!objetivoMin || objetivoMin <= 0) return;
+    function renderSummary(metrics) {
+      const { capitalizedDay, dateText, timeText } = getCurrentDateParts();
+      document.getElementById('generalFecha').textContent = `${capitalizedDay} ${dateText}`;
+      document.getElementById('generalHora').textContent = timeText;
+      document.getElementById('generalSemana').textContent = `Semana ${getISOWeekNumber()}`;
 
-      const progreso = Math.max(0, Math.min(1, totalMin / objetivoMin));
-      const porcentaje = Math.round(progreso * 100);
-      document.getElementById('progresoBarraInner').style.width = porcentaje + '%';
-      porcentajeSpan.textContent = porcentaje + '%';
-      detalle.textContent = `${minutesToHM(totalMin)} / ${minutesToHM(objetivoMin)} hs acumuladas (reales o estimadas hasta hoy).`;
+      const todayDisplay = metrics.todayOpen ? metrics.todayLiveMin : metrics.todayClosedMin;
+      document.getElementById('hoyLlevas').textContent = minutesToHM(todayDisplay);
+      document.getElementById('hoySugerido').textContent = minutesToHM(metrics.suggestedTodayMin);
+      document.getElementById('hoySalida').textContent = buildHoraSalidaStr(metrics.estimatedExitMin);
+      document.getElementById('hoyProgressPct').textContent = `${Math.round(metrics.todayProgress * 100)}%`;
+      document.getElementById('hoyProgressInner').style.width = `${Math.round(metrics.todayProgress * 100)}%`;
+
+      const liveNote = document.getElementById('hoyLiveNote');
+      if (metrics.todayOpen && todayDisplay != null) {
+        liveNote.textContent = `En vivo: ${minutesToHM(todayDisplay)} desde tu hora de entrada.`;
+      } else if (metrics.todayClosedMin != null) {
+        liveNote.textContent = `Hoy ya quedó cerrado con ${minutesToHM(metrics.todayClosedMin)} trabajadas.`;
+      } else {
+        liveNote.textContent = 'Cargá la entrada del día marcado como “hoy” para ver el seguimiento.';
+      }
+
+      document.getElementById('semanaCumplidas').textContent = minutesToHM(metrics.weeklyCompletedLive);
+      document.getElementById('semanaObjetivo').textContent = minutesToHM(metrics.objectiveWeekMin);
+      document.getElementById('semanaFaltan').textContent = minutesToHM(metrics.weeklyRemaining);
+      document.getElementById('semanaProgressPct').textContent = `${Math.round(metrics.weekProgress * 100)}%`;
+      document.getElementById('semanaProgressInner').style.width = `${Math.round(metrics.weekProgress * 100)}%`;
+      document.getElementById('semanaProgressNote').textContent = `${minutesToHM(metrics.weeklyCompletedLive)} / ${minutesToHM(metrics.objectiveWeekMin)} hs acumuladas hasta ahora.`;
+    }
+
+    function renderAlert(metrics) {
+      const box = document.getElementById('alertaExceso');
+      const nombre = obtenerNombre();
+      const prefijo = nombre ? `${nombre}, ` : '';
+      if (metrics.todayExcess != null) {
+        box.style.display = 'block';
+        box.innerHTML = `<strong>⚠️ Ya superaste lo sugerido para hoy</strong>${prefijo}llevás ${minutesToHM(metrics.todayOpen ? metrics.todayLiveMin : metrics.todayClosedMin)} trabajadas, cuando lo sugerido era ${minutesToHM(metrics.suggestedTodayMin)}.`;
+        if (!sonidoAlertaReproducido) {
+          reproducirAlertaSonora();
+          sonidoAlertaReproducido = true;
+        }
+        if ('Notification' in window && Notification.permission === 'granted') {
+          try {
+            new Notification('Hora libre', {
+              body: `${prefijo}ya superaste lo sugerido para hoy por ${minutesToHM(metrics.todayExcess)}.`,
+              icon: 'icon-192.png'
+            });
+          } catch (e) {
+            console.log('No se pudo mostrar la notificación:', e);
+          }
+        }
+      } else {
+        box.style.display = 'none';
+        box.textContent = '';
+        sonidoAlertaReproducido = false;
+      }
+    }
+
+    function actualizarEstadosTabla(todayIndex) {
+      for (let i = 1; i <= 5; i++) {
+        const pill = document.getElementById('estado' + i);
+        const trabaja = document.getElementById('trabaja' + i).checked;
+        const closed = getDayClosedMinutes(i);
+        pill.className = 'status-pill';
+        if (!trabaja) {
+          pill.classList.add('status-no');
+          pill.textContent = 'No se trabaja';
+        } else if (todayIndex === i) {
+          pill.classList.add('status-hoy');
+          pill.textContent = 'Hoy';
+        } else if (todayIndex != null && i < todayIndex && closed != null) {
+          pill.classList.add('status-activo');
+          pill.textContent = 'Activo';
+        } else {
+          pill.classList.add('status-previsto');
+          pill.textContent = 'Previsto';
+        }
+      }
+    }
+
+    function construirResumenSemana(workedDays, todayIndex, minimoMin, suggestedTodayMin) {
+      const cont = document.getElementById('resumenSemana');
+      if (!cont) return;
+
+      let html = '<div style="font-size:13px;color:var(--text-small);margin-bottom:8px;font-weight:700;">Lectura rápida de la semana</div>';
+      html += '<table><thead><tr><th>Día</th><th>Estado</th><th>Horas</th></tr></thead><tbody>';
+      const names = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+
+      for (let i = 1; i <= 5; i++) {
+        const name = names[i - 1];
+        const trabaja = workedDays.includes(i);
+        let estado = 'No se trabaja';
+        let clase = 'status-no';
+        let horas = '-';
+        const closed = getDayClosedMinutes(i);
+
+        if (trabaja) {
+          if (todayIndex != null && i < todayIndex) {
+            estado = closed != null ? 'Real' : 'Real (incompleto)';
+            clase = 'status-activo';
+            horas = closed != null ? minutesToHM(closed) : '-';
+          } else if (todayIndex === i) {
+            if (closed != null) {
+              estado = 'Real hoy';
+              clase = 'status-hoy';
+              horas = minutesToHM(closed);
+            } else {
+              const live = getDayLiveMinutes(i);
+              estado = 'Hoy';
+              clase = 'status-hoy';
+              horas = live != null ? `${minutesToHM(live)} (en vivo)` : minutesToHM(suggestedTodayMin);
+            }
+          } else {
+            estado = 'Previsto';
+            clase = 'status-previsto';
+            horas = minimoMin > 0 ? minutesToHM(minimoMin) : '-';
+          }
+        }
+
+        html += `<tr><td>${name}</td><td><span class="status-pill ${clase}">${estado}</span></td><td>${horas}</td></tr>`;
+      }
+
+      html += '</tbody></table>';
+      cont.innerHTML = html;
+    }
+
+    function refreshUI() {
+      const metrics = computeMetrics();
+      ultimaMetrica = metrics;
+      renderSummary(metrics);
+      renderAlert(metrics);
+      actualizarEstadosTabla(metrics.todayIndex);
+      return metrics;
     }
 
     function guardarEstado() {
@@ -812,9 +1105,8 @@
             salida: document.getElementById('salida' + i).value
           });
         }
-        const indiceHoy = obtenerIndiceHoy();
-        const payload = { minimo, dias, indiceHoy, nombre };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        const indiceHoy = getSelectedTodayIndex();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ minimo, dias, indiceHoy, nombre }));
       } catch (e) {
         console.log('No se pudo guardar el estado:', e);
       }
@@ -845,297 +1137,78 @@
       }
     }
 
-    function actualizarContador() {
-      const box = document.getElementById('contadorBox');
-      const texto = document.getElementById('contadorTexto');
-      const alertaExceso = document.getElementById('alertaExceso');
-
-      if (ultimaEntradaHoyMin == null || ultimaSugerenciaHoyMin == null) {
-        box.style.display = 'none';
-        alertaExceso.style.display = 'none';
-        actualizarPanelGeneral();
-        return;
+    function detectarDiaHoy() {
+      if (document.querySelector('input[name="hoy"]:checked')) return;
+      const diaSemi = new Date().getDay();
+      if (diaSemi >= 1 && diaSemi <= 5) {
+        const radio = document.querySelector(`input[name="hoy"][value="${diaSemi}"]`);
+        if (radio) radio.checked = true;
       }
-
-      const ahora = new Date();
-      const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-      let trabajadosHoy = minutosAhora - ultimaEntradaHoyMin;
-      if (trabajadosHoy < 0) trabajadosHoy = 0;
-
-      texto.textContent = `Llevás hoy: ${minutesToHM(trabajadosHoy)} (sugerido para hoy: ${minutesToHM(ultimaSugerenciaHoyMin)}).`;
-      box.style.display = 'block';
-      document.getElementById('hoyLlevasGrande').textContent = minutesToHM(trabajadosHoy);
-
-      if (ultimoObjetivoSemanalMin != null && ultimoAcumuladoHastaAyerMin != null) {
-        const total = ultimoAcumuladoHastaAyerMin + trabajadosHoy;
-        actualizarProgreso(total, ultimoObjetivoSemanalMin);
-      }
-
-      const exceso = trabajadosHoy - ultimaSugerenciaHoyMin;
-      const nombre = obtenerNombre();
-      const prefijo = nombre ? `${nombre}, ` : '';
-
-      if (exceso > 5) {
-        alertaExceso.style.display = 'block';
-        alertaExceso.textContent = `⚠️ ${prefijo}ya superaste lo sugerido para hoy por ${minutesToHM(exceso)}. Podés ir pensando en cerrar la jornada si las tareas lo permiten.`;
-
-        if (!sonidoAlertaReproducido) {
-          reproducirAlertaSonora();
-          sonidoAlertaReproducido = true;
-        }
-
-        if ('Notification' in window && Notification.permission === 'granted') {
-          try {
-            new Notification('Hora libre', {
-              body: `${prefijo}ya superaste lo sugerido para hoy por ${minutesToHM(exceso)}.`,
-              icon: 'icon-192.png'
-            });
-          } catch (e) {
-            console.log('No se pudo mostrar la notificación:', e);
-          }
-        }
-      } else {
-        alertaExceso.style.display = 'none';
-        alertaExceso.textContent = '';
-        sonidoAlertaReproducido = false;
-      }
-
-      actualizarPanelGeneral();
-    }
-
-    function iniciarContador() {
-      if (contadorInterval) clearInterval(contadorInterval);
-      if (ultimaEntradaHoyMin == null || ultimaSugerenciaHoyMin == null) return;
-
-      if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission().catch(() => {});
-      }
-
-      actualizarContador();
-      contadorInterval = setInterval(actualizarContador, 60000);
-    }
-
-    function construirResumenSemana(diasTrabajados, indiceHoy, minimoMin, sugeridoHoyMin) {
-      const cont = document.getElementById('resumenSemana');
-      let html = '<table><thead><tr><th>Día</th><th>Estado</th><th>Horas</th></tr></thead><tbody>';
-      const nombres = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-
-      for (let i = 1; i <= 5; i++) {
-        const nombreDia = nombres[i - 1];
-        const trabaja = diasTrabajados.includes(i);
-        let estadoClass = 'estado-no';
-        let estadoTxt = 'No se trabaja';
-        let horasTxt = '-';
-
-        const ent = parseTime(document.getElementById('entrada' + i).value);
-        const sal = parseTime(document.getElementById('salida' + i).value);
-        const tieneRegistro = ent != null && sal != null && sal > ent;
-        const horasDia = tieneRegistro ? (sal - ent) : null;
-
-        if (!trabaja) {
-          // nada
-        } else if (i < indiceHoy) {
-          if (horasDia != null) {
-            estadoClass = 'estado-real';
-            estadoTxt = 'Real';
-            horasTxt = minutesToHM(horasDia);
-          } else {
-            estadoClass = 'estado-real';
-            estadoTxt = 'Real (sin horario completo)';
-          }
-        } else if (i === indiceHoy) {
-          if (tieneRegistro) {
-            estadoClass = 'estado-real';
-            estadoTxt = 'Real hoy';
-            horasTxt = minutesToHM(horasDia);
-          } else {
-            estadoClass = 'estado-sugerido';
-            estadoTxt = 'Sugerido hoy';
-            horasTxt = minutesToHM(sugeridoHoyMin);
-          }
-        } else {
-          estadoClass = 'estado-minimo';
-          estadoTxt = 'Previsto mínimo';
-          horasTxt = minutesToHM(minimoMin);
-        }
-
-        html += `<tr><td>${nombreDia}</td><td class="${estadoClass}">${estadoTxt}</td><td>${horasTxt}</td></tr>`;
-      }
-
-      html += '</tbody></table>';
-      cont.innerHTML = html;
     }
 
     function calcular() {
-      const alerta = document.getElementById('alerta');
       const resultado = document.getElementById('resultado');
       const resultadoTexto = document.getElementById('resultadoTexto');
-      const alertaExceso = document.getElementById('alertaExceso');
-      const contadorBox = document.getElementById('contadorBox');
-
-      alerta.style.display = 'none';
-      alerta.textContent = '';
       resultado.style.display = 'none';
       resultadoTexto.textContent = '';
-      alertaExceso.style.display = 'none';
-      alertaExceso.textContent = '';
-      contadorBox.style.display = 'none';
-      ultimaEntradaHoyMin = null;
-      ultimaSugerenciaHoyMin = null;
-      sonidoAlertaReproducido = false;
-      if (contadorInterval) {
-        clearInterval(contadorInterval);
-        contadorInterval = null;
-      }
 
+      const metrics = refreshUI();
       const minimoHoras = Number(document.getElementById('minimoDiario').value || 0);
       if (!minimoHoras || minimoHoras <= 0) {
-        alerta.style.display = 'block';
-        alerta.textContent = '⚠️ Indicá un mínimo diario de horas válido (mayor a 0).';
-        actualizarPanelGeneral();
+        resultado.style.display = 'block';
+        resultado.innerHTML = '<strong>⚠️ Revisá el mínimo diario</strong>Indicá un mínimo diario de horas válido (mayor a 0).';
         return;
       }
-      const minimoMin = minimoHoras * 60;
-
-      const diasTrabajados = [];
-      for (let i = 1; i <= 5; i++) {
-        if (document.getElementById('trabaja' + i).checked) {
-          diasTrabajados.push(i);
-        }
-      }
-      if (diasTrabajados.length === 0) {
-        alerta.style.display = 'block';
-        alerta.textContent = '⚠️ Marcá al menos un día como trabajado.';
-        actualizarPanelGeneral();
+      if (metrics.workedDays.length === 0) {
+        resultado.style.display = 'block';
+        resultado.innerHTML = '<strong>⚠️ Sin días trabajados</strong>Marcá al menos un día como trabajado.';
         return;
       }
-
-      const indiceHoy = obtenerIndiceHoy();
-      if (!indiceHoy) {
-        alerta.style.display = 'block';
-        alerta.textContent = '⚠️ Marcá qué día es "hoy".';
-        actualizarPanelGeneral();
+      if (metrics.todayIndex == null) {
+        resultado.style.display = 'block';
+        resultado.innerHTML = '<strong>⚠️ Falta marcar “hoy”</strong>Marcá qué día es “hoy”.';
         return;
       }
-
-      if (!document.getElementById('trabaja' + indiceHoy).checked) {
-        alerta.style.display = 'block';
-        alerta.textContent = '⚠️ El día marcado como "hoy" debe estar también marcado como trabajado.';
-        actualizarPanelGeneral();
+      if (!metrics.workedDays.includes(metrics.todayIndex)) {
+        resultado.style.display = 'block';
+        resultado.innerHTML = '<strong>⚠️ Día inconsistente</strong>El día marcado como “hoy” debe estar también marcado como trabajado.';
         return;
       }
-
-      const objetivoSemanalMin = diasTrabajados.length * 7 * 60;
-      ultimoObjetivoSemanalMin = objetivoSemanalMin;
-
-      let acumuladoHastaAyer = 0;
-      diasTrabajados.forEach(i => {
-        if (i < indiceHoy) {
-          const ent = parseTime(document.getElementById('entrada' + i).value);
-          const sal = parseTime(document.getElementById('salida' + i).value);
-          if (ent != null && sal != null && sal > ent) {
-            acumuladoHastaAyer += (sal - ent);
-          }
-        }
-      });
-
-      const entradaHoy = parseTime(document.getElementById('entrada' + indiceHoy).value);
-      if (entradaHoy == null) {
-        alerta.style.display = 'block';
-        alerta.textContent = '⚠️ Ingresá al menos la hora de entrada de hoy en el día marcado como "hoy".';
-        actualizarPanelGeneral();
+      if (metrics.todayEntry == null) {
+        resultado.style.display = 'block';
+        resultado.innerHTML = '<strong>⚠️ Falta la hora de entrada</strong>Ingresá al menos la hora de entrada del día marcado como “hoy”.';
         return;
       }
-
-      const salidaHoy = parseTime(document.getElementById('salida' + indiceHoy).value);
-      const tieneSalidaHoyValida = salidaHoy != null && salidaHoy > entradaHoy;
-
-      let faltanteTeorico = objetivoSemanalMin - acumuladoHastaAyer;
-      let mensajeExtra = '';
-
-      if (faltanteTeorico <= 0) {
-        mensajeExtra = 'Ya cumpliste o superaste el objetivo semanal solo con los días anteriores. Aun así, se respeta el mínimo diario para hoy.';
-        faltanteTeorico = 0;
-      }
-
-      const diasFuturos = diasTrabajados.filter(i => i > indiceHoy);
-      const faltanteParaObjetivo = Math.max(0, faltanteTeorico);
-      const diasRestantesIncluyendoHoy = 1 + diasFuturos.length;
-      const maxJornadaRazonable = 9 * 60;
-      let sugeridoHoyMin;
-      let notaJornada = '';
-
-      if (faltanteParaObjetivo === 0) {
-        sugeridoHoyMin = minimoMin;
-      } else if (diasRestantesIncluyendoHoy >= 2) {
-        const requeridoEquilibrado = Math.ceil(faltanteParaObjetivo / diasRestantesIncluyendoHoy);
-        let propuesto = Math.max(minimoMin, requeridoEquilibrado);
-        if (propuesto > maxJornadaRazonable) {
-          propuesto = maxJornadaRazonable;
-          notaJornada = 'Para no sugerirte jornadas mayores a 9 horas, se reparte el esfuerzo entre hoy y los días siguientes.';
-        }
-        sugeridoHoyMin = propuesto;
-      } else {
-        let requeridoHoy = faltanteParaObjetivo;
-        if (requeridoHoy <= minimoMin) {
-          sugeridoHoyMin = minimoMin;
-        } else {
-          let propuesto = Math.min(requeridoHoy, maxJornadaRazonable);
-          if (propuesto < requeridoHoy) {
-            notaJornada = 'Aunque el cálculo teórico daría más horas para hoy, se limita la sugerencia a un máximo de 9 horas en una sola jornada.';
-          }
-          sugeridoHoyMin = propuesto;
-        }
-      }
-
-      const horaSalidaHoy = entradaHoy + sugeridoHoyMin;
-      document.getElementById('salidaEstimadaGrande').textContent = buildHoraSalidaStr(horaSalidaHoy);
 
       const nombre = obtenerNombre();
       const saludo = nombre ? `Hola, ${nombre}.\n\n` : '';
+      const actualHoy = metrics.todayOpen ? metrics.todayLiveMin : metrics.todayClosedMin;
 
-      let textoResultado =
+      let texto =
         saludo +
-        `🎯 Objetivo semanal (según días trabajados): ${minutesToHM(objetivoSemanalMin)}\n` +
-        `⏱️ Horas trabajadas hasta ayer: ${minutesToHM(acumuladoHastaAyer)}\n` +
-        `📉 Horas faltantes antes de empezar hoy (teóricas): ${minutesToHM(objetivoSemanalMin - acumuladoHastaAyer)}\n\n` +
-        `🕒 Horas sugeridas para hoy: ${minutesToHM(sugeridoHoyMin)}\n` +
-        `🚪 Hora de salida estimada hoy: ${buildHoraSalidaStr(horaSalidaHoy)}`;
+        `🎯 Objetivo semanal (según días trabajados): ${minutesToHM(metrics.objectiveWeekMin)}\n` +
+        `⏱️ Horas trabajadas hasta ayer: ${minutesToHM(metrics.closedUntilYesterday)}\n` +
+        `📉 Horas faltantes antes de empezar hoy (teóricas): ${minutesToHM(metrics.objectiveWeekMin - metrics.closedUntilYesterday)}\n\n` +
+        `🕒 Horas sugeridas para hoy: ${minutesToHM(metrics.suggestedTodayMin)}\n` +
+        `🚪 Hora de salida estimada hoy: ${buildHoraSalidaStr(metrics.estimatedExitMin)}\n` +
+        `📊 Horas cumplidas de la semana (en vivo): ${minutesToHM(metrics.weeklyCompletedLive)}`;
 
       const notas = [];
-      if (mensajeExtra) notas.push(`Nota: ${mensajeExtra}`);
-      if (notaJornada) notas.push(notaJornada);
-
-      if (tieneSalidaHoyValida) {
-        const trabajadoHoy = salidaHoy - entradaHoy;
-        notas.push(`Según el horario de salida que cargaste, hoy llevás ${minutesToHM(trabajadoHoy)} trabajadas.`);
+      if (metrics.msgExtra) notas.push(`Nota: ${metrics.msgExtra}`);
+      if (metrics.noteDay) notas.push(metrics.noteDay);
+      if (actualHoy != null) {
+        const etiqueta = metrics.todayOpen ? 'Hasta ahora' : 'Con la salida cargada';
+        notas.push(`${etiqueta}, hoy llevás ${minutesToHM(actualHoy)} trabajadas.`);
       }
-
-      if (notas.length) {
-        textoResultado += `\n\n${notas.join('\n')}`;
-      }
+      if (notas.length) texto += `\n\n${notas.join('\n')}`;
 
       resultado.style.display = 'block';
-      resultadoTexto.textContent = textoResultado;
+      resultado.innerHTML = '<strong>📌 Resumen de la jornada</strong><span id="resultadoTexto" style="display:block;margin-top:4px;white-space:pre-line;"></span>';
+      document.getElementById('resultadoTexto').textContent = texto;
 
-      if (tieneSalidaHoyValida) {
-        const trabajadoHoy = salidaHoy - entradaHoy;
-        ultimoAcumuladoHastaAyerMin = acumuladoHastaAyer + trabajadoHoy;
-        ultimaEntradaHoyMin = null;
-        ultimaSugerenciaHoyMin = null;
-        actualizarProgreso(acumuladoHastaAyer + trabajadoHoy, objetivoSemanalMin);
-        document.getElementById('hoyLlevasGrande').textContent = minutesToHM(trabajadoHoy);
-      } else {
-        ultimoAcumuladoHastaAyerMin = acumuladoHastaAyer;
-        ultimaEntradaHoyMin = entradaHoy;
-        ultimaSugerenciaHoyMin = sugeridoHoyMin;
-        actualizarProgreso(acumuladoHastaAyer, objetivoSemanalMin);
-        iniciarContador();
-      }
-
-      construirResumenSemana(diasTrabajados, indiceHoy, minimoMin, sugeridoHoyMin);
+      construirResumenSemana(metrics.workedDays, metrics.todayIndex, metrics.minimoMin, metrics.suggestedTodayMin);
       guardarEstado();
-      actualizarPanelGeneral();
+      iniciarContador();
     }
 
     function limpiarSemana() {
@@ -1146,68 +1219,75 @@
         document.getElementById('salida' + i).value = '';
         document.getElementById('trabaja' + i).checked = true;
       }
-
-      if (contadorInterval) {
-        clearInterval(contadorInterval);
-        contadorInterval = null;
-      }
-      ultimaEntradaHoyMin = null;
-      ultimaSugerenciaHoyMin = null;
-      ultimoObjetivoSemanalMin = obtenerObjetivoSemanalMin();
-      ultimoAcumuladoHastaAyerMin = 0;
-      sonidoAlertaReproducido = false;
-
-      document.getElementById('alerta').style.display = 'none';
+      document.querySelectorAll('input[name="hoy"]').forEach(r => r.checked = false);
       document.getElementById('resultado').style.display = 'none';
-      document.getElementById('contadorBox').style.display = 'none';
-      document.getElementById('alertaExceso').style.display = 'none';
-      document.getElementById('resultadoTexto').textContent = '';
-      document.getElementById('contadorTexto').textContent = '';
+      document.getElementById('resultado').innerHTML = '<strong>📌 Resumen de la jornada</strong><span id="resultadoTexto" style="display:block;margin-top:4px;"></span>';
       document.getElementById('resumenSemana').innerHTML = '';
-      document.getElementById('salidaEstimadaGrande').textContent = '--:--';
-      document.getElementById('hoyLlevasGrande').textContent = '00:00';
-
-      document.getElementById('progresoBarraInner').style.width = '0%';
-      document.getElementById('progresoPorcentaje').textContent = '0%';
-      document.getElementById('progresoDetalle').textContent = '';
-
+      detectarDiaHoy();
+      refreshUI();
       guardarEstado();
-      actualizarPanelGeneral();
     }
 
-    function detectarDiaHoy() {
-      const fecha = new Date();
-      const diaSemi = fecha.getDay();
-      if (diaSemi >= 1 && diaSemi <= 5) {
-        const radio = document.querySelector(`input[name="hoy"][value="${diaSemi}"]`);
-        if (radio) radio.checked = true;
+    function iniciarContador() {
+      if (contadorInterval) clearInterval(contadorInterval);
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
       }
+      contadorInterval = setInterval(() => {
+        refreshUI();
+      }, 60000);
     }
 
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    if (currentTheme === 'dark') {
-      document.body.setAttribute('data-theme', 'dark');
-    }
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const theme = document.body.getAttribute('data-theme');
-      if (theme === 'dark') {
-        document.body.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      } else {
+    function configurarTema() {
+      const themeToggle = document.getElementById('themeToggle');
+      const storedTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (storedTheme === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
       }
-    });
+      themeToggle.addEventListener('click', () => {
+        const current = document.body.getAttribute('data-theme');
+        if (current === 'dark') {
+          document.body.removeAttribute('data-theme');
+          localStorage.setItem(THEME_KEY, 'light');
+        } else {
+          document.body.setAttribute('data-theme', 'dark');
+          localStorage.setItem(THEME_KEY, 'dark');
+        }
+      });
+    }
+
+    function bindInputs() {
+      const ids = ['nombreUsuario', 'minimoDiario'];
+      for (let i = 1; i <= 5; i++) {
+        ids.push('trabaja' + i, 'entrada' + i, 'salida' + i);
+      }
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => {
+          refreshUI();
+          guardarEstado();
+        });
+        el.addEventListener('change', () => {
+          refreshUI();
+          guardarEstado();
+        });
+      });
+      document.querySelectorAll('input[name="hoy"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          refreshUI();
+          guardarEstado();
+        });
+      });
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
+      configurarTema();
       cargarEstado();
-      if (!document.querySelector('input[name="hoy"]:checked')) {
-        detectarDiaHoy();
-      }
-      ultimoObjetivoSemanalMin = obtenerObjetivoSemanalMin();
-      actualizarPanelGeneral();
-      setInterval(actualizarPanelGeneral, 60000);
+      detectarDiaHoy();
+      bindInputs();
+      refreshUI();
+      iniciarContador();
     });
 
     if ('serviceWorker' in navigator) {
