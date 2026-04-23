@@ -1,10 +1,10 @@
 {
-  "name": "Calculadora de Jornada Laboral",
-  "short_name": "Jornada",
+  "name": "Hora libre – Calculadora de jornada semanal",
+  "short_name": "Hora libre",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f4f5fb",
-  "theme_color": "#2563eb",
+  "theme_color": "#1f4f82",
   "icons": [
     {
       "src": "icon-192.png",
