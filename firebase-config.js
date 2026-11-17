@@ -1,5 +1,5 @@
 
-window.HORALIBRE_FIREBASE_CONFIG = {
+export const firebaseConfig = {
   apiKey: "AIzaSyADfY79Tm0Izl4Wn524kjuil9xHYx_OHd8",
   authDomain: "horalibre-7a187.firebaseapp.com",
   projectId: "horalibre-7a187",
