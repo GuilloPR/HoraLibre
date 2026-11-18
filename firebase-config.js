@@ -1,4 +1,4 @@
-
+// Configuración pública de Firebase (no es una contraseña).
 export const firebaseConfig = {
   apiKey: "AIzaSyADfY79Tm0Izl4Wn524kjuil9xHYx_OHd8",
   authDomain: "horalibre-7a187.firebaseapp.com",
